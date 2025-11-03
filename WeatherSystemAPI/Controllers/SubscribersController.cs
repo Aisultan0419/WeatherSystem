@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using WeatherApplication;
 using WeatherApplication.Display;
 using WeatherApplication.DTO;
-using WeatherApplication.Interfaces;
 
 namespace WeatherSystemAPI.Controllers
 {
@@ -11,27 +10,27 @@ namespace WeatherSystemAPI.Controllers
     public class SubscribersController : ControllerBase
     {
         private readonly WeatherStation _station;
-        private readonly IObserverFactory _factory;
+        private readonly WeatherFacade _facade;
 
-        public SubscribersController(WeatherStation station, IObserverFactory factory)
+        public SubscribersController(WeatherFacade facade, WeatherStation station)
         {
-            _station = station; _factory = factory;
+            _facade = facade;
+            _station = station;
         }
 
         [HttpPost]
-        public ActionResult<Guid> Subscribe([FromBody] SubscribeDto dto)
+        public ActionResult<Guid> Subscribe([FromBody] SubscribeRequest request)
         {
-            var observer = _factory.Create(dto);
-            var id = _station.Subscribe(observer);
+            var id = _facade.Subscribe(request.Subscriber, request.Weather);
+            _station.Notify(request.Weather); 
             return Ok(id);
         }
 
         [HttpDelete("{id:guid}")]
         public IActionResult Unsubscribe(Guid id)
         {
-            var removed = _station.Unsubscribe(id);
+            var removed = _facade.Unsubscribe(id);
             return removed ? NoContent() : NotFound();
         }
     }
-
 }

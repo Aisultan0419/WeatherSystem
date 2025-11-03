@@ -13,7 +13,7 @@ namespace WeatherApplication.Display
             _city = city;
             _fileName = $"{city}_{DateTime.UtcNow:yyyyMMddHHmmss}.log";
         }
-
+        
         public void Update(WeatherGetDTO weather)
         {
             if (!string.Equals(weather.City, _city, StringComparison.OrdinalIgnoreCase)) return;

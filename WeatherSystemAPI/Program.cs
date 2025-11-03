@@ -24,6 +24,8 @@ builder.Services.AddTransient<ManualStrategy>();
 
 builder.Services.AddSingleton<WeatherStation>();
 builder.Services.AddSingleton<IObserverFactory, ObserverFactory>();
+builder.Services.AddScoped<WeatherFacade>();
+
 builder.Services.Configure<OpenWeatherOptions>(
     builder.Configuration.GetSection("OpenWeather"));
 builder.Services.AddOptions<OpenWeatherOptions>()
@@ -32,6 +34,17 @@ builder.Services.AddOptions<OpenWeatherOptions>()
     .Validate(o => !string.IsNullOrWhiteSpace(o.ApiKey), "Missing API key for OpenWeather");
 
 builder.Services.AddScoped<WeatherService>();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials() 
+              .WithOrigins("http://localhost:3000");
+    });
+});
 
 builder.Services.AddTransient<WebSocketObserver>(sp =>
     new WebSocketObserver(
@@ -47,7 +60,10 @@ builder.Services.AddTransient<FileObserver>(sp =>
 
 var app = builder.Build();
 
-app.MapHub<WeatherHub>("/weatherHub");
+
+app.UseRouting();
+
+app.UseCors("AllowAll");
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -55,11 +71,12 @@ if (app.Environment.IsDevelopment())
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "Weather API");
     });
 }
-
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHub<WeatherHub>("/weatherHub");
 
 app.Run();

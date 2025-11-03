@@ -17,5 +17,6 @@ namespace WeatherApplication
             var data = await strategy.UpdateWeatherAsync(ctx);
             return data;
         }
+
     }
 }
