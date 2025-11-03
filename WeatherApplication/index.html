@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang = 'eng'>
+    <head>
+        <title>Weather station</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.7/signalr.min.js" defer  referrerpolicy="no-referrer"></script>
+        <script src="main.js" defer></script>
+        <meta charset = "utf-8">
+        <meta name = "viewport" content = "width=device-width, initial scale = 1">
+    </head>
+    <body>
+        <header>
+            <div class = "headerBlock">
+                <h1>
+                    Welcome to weather forecast
+                </h1>
+                <div class="headerSun">
+                    <img src="img/sun.png" class="overlay" alt="overlay image">
+                </div>
+            </div>
+        </header>
+        <main>
+            <div class="display">
+                <h2 id = "displayText">Choose display type and city</h1>
+            </div>
+
+            <div class="wrap">
+            <form id="strategyForm" class="card" onsubmit="return false;" aria-labelledby="formTitle">
+            
+
+            <div class="field" role="group" aria-label="Strategy selection">
+            <div style="font-size:13px;margin-bottom:8px;font-weight:600">Strategy</div>
+            <div class="options">
+            <label class = "hulabel"><input type="radio" name="strategy" value="RealTime" checked>RealTime</label>
+            <label class = "hulabel"><input type="radio" name="strategy" value="Batch">Batch</label>
+            <label class = "hulabel"><input type="radio" name="strategy" value="Manual">Manual</label>
+            </div>
+            </div>
+
+
+            <div class="field">
+            <div style="font-size:13px;margin-bottom:8px;font-weight:600">City</div>
+            <select name="city" id="citySelect" required>
+            <option value="Almaty">Almaty</option>
+            <option value="Astana">Astana</option>
+            <option value="Shymkent">Shymkent</option>
+            <option value="Karaganda">Karaganda</option>
+            <option value="Aktobe">Aktobe</option>
+            <option value="Pavlodar">Pavlodar</option>
+            <option value="Oskemen">Oskemen</option>
+            <option value="Semey">Semey</option>
+            <option value="Taraz">Taraz</option>
+            <option value="Kokshetau">Kokshetau</option>
+            <option value="Kostanay">Kostanay</option>
+            <option value="Aktau">Aktau</option>
+            <option value="Atyrau">Atyrau</option>
+            <option value="Kyzylorda">Kyzylorda</option>
+            <option value="Baikonur">Baikonur</option>
+            <option value="Balkhash">Balkhash</option>
+            <option value="Zhezkazgan">Zhezkazgan</option>
+            <option value="Janaozen">Janaozen</option>
+            <option value="Turkistan">Turkistan</option>
+            <option value="Taldykorgan">Taldykorgan</option>
+            <option value="Oral">Oral</option>
+            <option value="Petropavl">Petropavl</option>
+            <option value="Ridder">Ridder</option>
+            <option value="Satpayev">Satpayev</option>
+            <option value="Saryagash">Saryagash</option>
+            <option value="Stepnogorsk">Stepnogorsk</option>
+            <option value="Ekibastuz">Ekibastuz</option>
+            <option value="Temirtau">Temirtau</option>
+            <option value="Balqash">Balqash</option>
+            <option value="Kokshetau">Kokshetau</option>
+            </select>
+            </div>
+             <button type="button" id="showButton" style="width:80px;">Show</button>
+            </div>
+
+            <div class="specificWeather">
+                <div class="dropBlock">
+                <img src="img/drop.png" alt="dropImg" class = "drop">
+                </div>
+                <div class = "temp">
+                <img src="img/temp.png" alt="tempImg" class = "tempImg"> 
+                </div> 
+                <div class = "humidityBlock">
+                    <p class="humidity">29</p>
+                </div>
+                <div class = "tempRateBlock">
+                <p class = "tempRate">30C celcius</p>
+                </div>
+                <div class="cityDescription">
+                <div class="City">
+                <h3 class="CityPlace">Astana</h3>
+                <p class="time">18 Nov</p>
+                </div>
+
+                <h4 class = "description">
+                    Overcast clouds
+                </h4>
+                </div>
+            </div>
+            <br><br><br>
+            <div class="subBlock">
+                <p>How would you like to get information?</p>
+
+                <div class="obOptions">
+                    <label><input type="radio" name="observer" value="file" checked>File</label>
+                    <label><input type="radio" name="observer" value="web">WebSocket</label>
+                    <label><input type="radio" name="observer" value="console">Console</label>
+                </div>
+
+                <button type="button" id="tryButton" style="width:100px;">Subscribe</button>
+               
+            </div>
+
+
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        </main>
+        <footer>
+            <div class = "footer">
+            <p id = "footerText">
+                Software design patterns. Aisultan Kalibek.
+            </p>
+            </div>
+        </footer>
+    </body>
+</html>
